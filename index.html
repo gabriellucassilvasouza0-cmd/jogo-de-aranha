@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Spider Evolution</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+</head>
+
+<body>
+
+    <!-- JOGO -->
+    <canvas id="game"></canvas>
+
+
+    <!-- =========================
+         PAINEL DE ESTATÍSTICAS
+    ========================== -->
+
+    <aside id="hud">
+
+        <div
+            id="spiderName"
+            class="hud-title"
+        >
+            🕷️ Aranha
+        </div>
+
+
+        <div class="stat">
+            <span>Nível</span>
+            <strong id="level">1</strong>
+        </div>
+
+
+        <div class="stat">
+            <span>XP</span>
+            <strong id="xpText">0 / 1</strong>
+        </div>
+
+
+        <div class="xp-track">
+            <div id="xpBar"></div>
+        </div>
+
+
+        <div class="stat">
+            <span>Pontos</span>
+            <strong id="points">0</strong>
+        </div>
+
+
+        <div class="stat">
+            <span>Vida</span>
+            <strong id="hp">200 / 200</strong>
+        </div>
+
+
+        <div class="stat">
+            <span>Dano</span>
+            <strong id="damage">1</strong>
+        </div>
+
+
+        <div class="stat">
+            <span>Abates</span>
+            <strong id="kills">0</strong>
+        </div>
+
+
+        <div class="stat">
+            <span>Relíquias</span>
+            <strong id="relics">0</strong>
+        </div>
+
+
+        <div class="stat">
+            <span>Ciclo</span>
+            <strong id="cycle">1</strong>
+        </div>
+
+
+        <div class="stat">
+            <span>Meta</span>
+            <strong id="goal">
+                1.000.000
+            </strong>
+        </div>
+
+
+        <!-- HABILIDADES -->
+
+        <div
+            class="status"
+            id="ranged"
+        >
+            🔒 Distância: 1/100
+        </div>
+
+
+        <div
+            class="status"
+            id="auto"
+        >
+            🔒 Automático: Boss I
+        </div>
+
+
+        <div
+            class="status"
+            id="second"
+        >
+            🔒 2ª aranha: Boss III
+        </div>
+
+
+        <div
+            class="status"
+            id="nextBoss"
+        >
+            👑 Próximo boss: LV 200
+        </div>
+
+
+        <!-- MELHORIAS -->
+
+        <details>
+
+            <summary>
+                Melhorias
+            </summary>
+
+
+            <button id="btnHp">
+                +10 Vida
+            </button>
+
+
+            <button id="btnDamage">
+                +1 Dano
+            </button>
+
+
+            <button
+                id="btnAutoSpeed"
+                disabled
+            >
+                + Velocidade automática
+            </button>
+
+
+            <button
+                id="btnAutoPower"
+                disabled
+            >
+                + Força automática
+            </button>
+
+        </details>
+
+
+        <!-- RELÍQUIAS -->
+
+        <details>
+
+            <summary>
+                Relíquias
+            </summary>
+
+
+            <div
+                id="relicList"
+                class="relic-list"
+            >
+                Nenhuma
+            </div>
+
+        </details>
+
+    </aside>
+
+
+    <!-- =========================
+         BARRA DO BOSS
+    ========================== -->
+
+    <section id="bossPanel">
+
+        <div id="bossName">
+            BOSS
+        </div>
+
+
+        <div class="boss-track">
+
+            <div id="bossBar"></div>
+
+        </div>
+
+
+        <div id="bossHp">
+            0 / 0
+        </div>
+
+    </section>
+
+
+    <!-- NOTIFICAÇÕES -->
+
+    <div id="toast"></div>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
