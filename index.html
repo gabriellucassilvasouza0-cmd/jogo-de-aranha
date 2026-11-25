@@ -1,227 +1,81 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#000000">
     <title>Spider Evolution</title>
-
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+    <canvas id="game" aria-label="Campo de jogo: mova o cursor ou o dedo para guiar a aranha e toque para atacar"></canvas>
 
-    <!-- JOGO -->
-    <canvas id="game"></canvas>
+    <!-- Painel de estatísticas -->
+    <aside id="hud" data-form="normal">
+        <header class="hud-head">
+            <div id="spiderName" class="hud-title">Aranha</div>
+            <button id="hudToggle" class="hud-toggle" type="button" aria-expanded="false" aria-controls="hudMore">Menu</button>
+        </header>
 
+        <!-- Sempre visível -->
+        <div class="hud-core">
+            <div class="stat"><span>Nível</span><strong id="level">1</strong></div>
 
-    <!-- =========================
-         PAINEL DE ESTATÍSTICAS
-    ========================== -->
+            <div class="stat"><span>XP</span><strong id="xpText">0 / 1</strong></div>
+            <div class="track"><div id="xpBar" class="fill xp"></div></div>
 
-    <aside id="hud">
+            <div class="stat"><span>Vida</span><strong id="hp">200 / 200</strong></div>
+            <div class="track"><div id="hpBar" class="fill hp"></div></div>
 
-        <div
-            id="spiderName"
-            class="hud-title"
-        >
-            🕷️ Aranha
+            <div class="stat"><span>Pontos</span><strong id="points">0</strong></div>
         </div>
 
+        <!-- Detalhes (recolhido no celular) -->
+        <div id="hudMore" class="hud-more">
+            <div class="stat"><span>Dano</span><strong id="damage">1</strong></div>
+            <div class="stat"><span>Abates</span><strong id="kills">0</strong></div>
+            <div class="stat"><span>Relíquias</span><strong id="relics">0</strong></div>
+            <div class="stat"><span>Ciclo</span><strong id="cycle">1</strong></div>
+            <div class="stat"><span>Meta</span><strong id="goal">1.000.000</strong></div>
 
-        <div class="stat">
-            <span>Nível</span>
-            <strong id="level">1</strong>
-        </div>
-
-
-        <div class="stat">
-            <span>XP</span>
-            <strong id="xpText">0 / 1</strong>
-        </div>
-
-
-        <div class="xp-track">
-            <div id="xpBar"></div>
-        </div>
-
-
-        <div class="stat">
-            <span>Pontos</span>
-            <strong id="points">0</strong>
-        </div>
-
-
-        <div class="stat">
-            <span>Vida</span>
-            <strong id="hp">200 / 200</strong>
-        </div>
-
-
-        <div class="stat">
-            <span>Dano</span>
-            <strong id="damage">1</strong>
-        </div>
-
-
-        <div class="stat">
-            <span>Abates</span>
-            <strong id="kills">0</strong>
-        </div>
-
-
-        <div class="stat">
-            <span>Relíquias</span>
-            <strong id="relics">0</strong>
-        </div>
-
-
-        <div class="stat">
-            <span>Ciclo</span>
-            <strong id="cycle">1</strong>
-        </div>
-
-
-        <div class="stat">
-            <span>Meta</span>
-            <strong id="goal">
-                1.000.000
-            </strong>
-        </div>
-
-
-        <!-- HABILIDADES -->
-
-        <div
-            class="status"
-            id="ranged"
-        >
-            🔒 Distância: 1/100
-        </div>
-
-
-        <div
-            class="status"
-            id="auto"
-        >
-            🔒 Automático: Boss I
-        </div>
-
-
-        <div
-            class="status"
-            id="second"
-        >
-            🔒 2ª aranha: Boss III
-        </div>
-
-
-        <div
-            class="status"
-            id="nextBoss"
-        >
-            👑 Próximo boss: LV 200
-        </div>
-
-
-        <!-- MELHORIAS -->
-
-        <details>
-
-            <summary>
-                Melhorias
-            </summary>
-
-
-            <button id="btnHp">
-                +10 Vida
-            </button>
-
-
-            <button id="btnDamage">
-                +1 Dano
-            </button>
-
-
-            <button
-                id="btnAutoSpeed"
-                disabled
-            >
-                + Velocidade automática
-            </button>
-
-
-            <button
-                id="btnAutoPower"
-                disabled
-            >
-                + Força automática
-            </button>
-
-        </details>
-
-
-        <!-- RELÍQUIAS -->
-
-        <details>
-
-            <summary>
-                Relíquias
-            </summary>
-
-
-            <div
-                id="relicList"
-                class="relic-list"
-            >
-                Nenhuma
+            <div class="status-list">
+                <div class="status" id="ranged">Distância: 1/100</div>
+                <div class="status" id="auto">Automático: Boss I</div>
+                <div class="status" id="second">2ª aranha: Boss III</div>
+                <div class="status" id="nextBoss">Próximo boss: LV 200</div>
             </div>
 
-        </details>
+            <details open>
+                <summary>Melhorias</summary>
+                <div class="buttons">
+                    <button id="btnHp" type="button">+10 Vida</button>
+                    <button id="btnDamage" type="button">+1 Dano</button>
+                    <button id="btnAutoSpeed" type="button" disabled>+ Velocidade auto</button>
+                    <button id="btnAutoPower" type="button" disabled>+ Força auto</button>
+                </div>
+            </details>
 
+            <details>
+                <summary>Relíquias</summary>
+                <ul class="relic-list">
+                    <li><span>❤️ Coração Antigo</span><b id="relicHeart">0</b></li>
+                    <li><span>🦷 Presa Ancestral</span><b id="relicFang">0</b></li>
+                    <li><span>⏳ Ampulheta</span><b id="relicClock">0</b></li>
+                    <li><span>🔮 Núcleo</span><b id="relicCore">0</b></li>
+                </ul>
+            </details>
+        </div>
     </aside>
 
-
-    <!-- =========================
-         BARRA DO BOSS
-    ========================== -->
-
-    <section id="bossPanel">
-
-        <div id="bossName">
-            BOSS
-        </div>
-
-
-        <div class="boss-track">
-
-            <div id="bossBar"></div>
-
-        </div>
-
-
-        <div id="bossHp">
-            0 / 0
-        </div>
-
+    <!-- Barra do boss -->
+    <section id="bossPanel" aria-live="polite">
+        <div id="bossName">BOSS</div>
+        <div class="boss-track"><div id="bossBar"></div></div>
+        <div id="bossHp">0 / 0</div>
     </section>
 
+    <div id="toast" role="status" aria-live="polite"></div>
 
-    <!-- NOTIFICAÇÕES -->
-
-    <div id="toast"></div>
-
-
-    <script src="script.js"></script>
-
+    <script type="module" src="src/main.js"></script>
 </body>
-
 </html>
